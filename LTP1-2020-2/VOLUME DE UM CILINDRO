@@ -1,0 +1,8 @@
+#Exercicio 3
+print('Ola mundo, para encontrar o volume de um cilindro fornceca os seguintes dados em METRO.')
+R = float(input('Raio:'))
+H = float(input('Altura:'))
+Area  = 3.1415926535897931* (R*R)
+A="%.2f" % (Area)
+Volume= "%.2f" % (H*Area)
+print ('Area é de ',A ,'m2', 'volume do cilindro  é:', Volume,'m3')
