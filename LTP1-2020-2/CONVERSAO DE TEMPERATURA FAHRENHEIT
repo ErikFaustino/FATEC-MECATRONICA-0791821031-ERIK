@@ -1,0 +1,5 @@
+#Exercicio 2
+print('Ola mundo, para realizar a conversao forneca o valor em Celsius.')
+temp_celsius = float(input('C:'))
+temp_Fahrenheit  = "%.2f" % ((temp_celsius*1.8)+32)
+print('O valor de ', temp_celsius, 'em Fahrenheit  é:', temp_Fahrenheit)
