@@ -1,0 +1,293 @@
+#Cadastros
+Id_goku = '01'
+cliente_goku='Goku'
+CPF_goku='4'
+Email_goku='@'
+Senha_goku='225'
+Saldo_goku= float (1000)
+
+Id_saitama='02'
+cliente_saitama='Saitama'
+CPF_saitama='11'
+Email_saitama='@one'
+Senha_saitama='man'
+Saldo_saitama=float(250)
+
+Id_naruto='03'
+cliente_naruto='Naruto'
+CPF_naruto='6'
+Email_naruto='@naruto'
+Senha_naruto='sasuke'
+Saldo_naruto=float(3000)
+
+#Menu de servicos
+def exibir_menu():
+  print("Menu de Serviços:")
+  print("1 - Verifique seu Saldo")
+  print("2 - Efetue Transferencias para Contas ja cadastradas")
+  print("0 - Sair")
+
+def exibir_Contas():
+  print("Lista de contas Cadastradas.")
+  print("Selecione o Favorecido.")
+  print("1-Saitama")
+  print("2-Naruto")
+
+def exibir_Contas1():
+  print("Lista de contas Cadastradas.")
+  print("Selecione o Favorecido.")
+  print("1-Goku")
+  print("2-Naruto")
+
+def exibir_Contas2():
+  print("Lista de contas Cadastradas.")
+  print("Selecione o Favorecido.")
+  print("1-Goku")
+  print("2-Saitama")
+
+import random
+import os
+continuar = True
+#sistema de busca
+while continuar == True:
+ def busca(clientes, nome_procurado):
+   encontrei = False
+   for nome in clientes.split(';'):
+     if nome == nome_procurado:
+      encontrei = True
+   return encontrei
+   #nomes que fazem parte do banco de clientes
+ clientes = 'erik;saitama;goku'
+ print("Ola...")
+ #verificacao do nome DEVE SER ESCRITO DE MANEIRA MINUSCULA
+ nome = input("Informe seu Nome para Iniciar o Atentimento:")
+ Nome=(nome.capitalize())
+ if busca(clientes, nome) == True:
+   print("Bem Vindo.Sr:",Nome)
+   print("Para Iniciar o Atententimendo Basta Informar os Dados Abaixo")
+# verificaçao de dados
+   CPF = input(" CPF:")
+   Email = input("E-mail cadastrado:")
+   Senha = input("Senha:")
+
+   if CPF == CPF_goku and Email == Email_goku and Senha == Senha_goku and Nome == cliente_goku:
+     os.system("clear")
+     print("Muito Bem Sr.",Nome)
+     print("Seu Id de Segurança é:",Id_goku)
+     print('Como Podemos Ajudar?')
+     
+     # dados do cliente
+    
+     while True:
+       exibir_menu() 
+       opcao = int(input("Opcao:"))
+       if opcao == 0:
+         os.system("clear")
+         break
+       if opcao == 1:
+         print("Saldo Atual é De:R$%.2f" % (Saldo_goku))
+         menu =int (input("0-Para Retornar ao Menu de Serviços."))
+         if menu == 0:
+           os.system("clear")
+           print("Muito Bem Sr.",Nome)
+           print("Seu Id de Segurança é:",Id_goku)
+           print('Como Podemos Ajudar?')
+        # tranferencia de valor   
+       if opcao == 2:
+         print("Selecione a Conta qual Deseja realizar a Transação")
+         os.system("clear")
+         exibir_Contas()
+         opcao2 = int(input("Opcao:"))
+# Transferencia PRIMEIRO CLIENTE
+         if opcao2 == 1:
+           print("Favorecido",cliente_saitama)
+           valor_transferencia= int(input("Valor da Transferencia:"))
+           print("Transferencia De:R$%.2f" % (valor_transferencia))
+           if valor_transferencia <= Saldo_goku:
+             Saldo_saitama=Saldo_saitama+  valor_transferencia
+             saldo_atual=Saldo_goku - valor_transferencia
+             Saldo_goku=saldo_atual
+             #numero de seguranca (aleatorio entre 1000~9999)
+             Numero_seggoku= random.randint(1000,9999)
+             print("Operção Aprovada")
+             print("Saldo Atual é De:R$%.2f" % (saldo_atual))
+             print("QrCode:",Id_goku, ";",cliente_saitama, ";",valor_transferencia, ";",Numero_seggoku)
+             input("Precione Enter para Retornar ao Menu")
+             # saldo isulficiente
+           else:
+              print("Saldo Insuficiente.")
+              print("Sessao Encerrada")
+              input("Pressione enter para continuar")
+              os.system("clear")
+              break
+# Transferencia SEGUMDO CLIENTE
+         if opcao2 == 2:
+           print("Favorecido",cliente_naruto)
+           valor_transferencia= int(input("Valor da Transferencia:"))
+           print("Transferencia De:R$%.2f" % (valor_transferencia))
+           if valor_transferencia <= Saldo_goku:
+             Saldo_naruto=Saldo_naruto +  valor_transferencia
+             saldo_atual=Saldo_goku - valor_transferencia
+             Saldo_goku=saldo_atual
+             Numero_seggoku= random.randint(1000,9999)
+             print("Operção Aprovada")
+             print("Saldo Atual é De:R$%.2f" % (saldo_atual))
+             print("QrCode:",Id_goku, ";",Saldo_naruto, ";",valor_transferencia, ";",Numero_seggoku)
+             input("Precione Enter para Retornar ao Menu")
+             
+           else:
+              print("Saldo Insuficiente.")
+              print("Sessao Encerrada")
+              input("Pressione enter para continuar")
+              os.system("clear")
+              break
+# SEGUNDO CLIENTE
+   elif CPF == CPF_saitama and Email == Email_saitama and Senha == Senha_saitama and Nome == cliente_saitama:
+     os.system("clear")
+     print("Muito Bem Sr.",Nome)
+     print("Seu Id de Segurança é:",Id_saitama)
+     print('Como Podemos Ajudar?')
+     
+     
+    
+     while True:
+       exibir_menu() 
+       opcao = int(input("Opcao:"))
+       if opcao == 0:
+        os.system("clear")
+        break
+       if opcao == 1:
+         print("Saldo Atual é De:R$%.2f" % (Saldo_saitama))
+         menu =int (input("0-Para Retornar ao Menu de Serviços."))
+         if menu == 0:
+           os.system("clear")
+           print("Muito Bem Sr.",Nome)
+           print("Seu Id de Segurança é:",Id_saitama)
+           print('Como Podemos Ajudar?')
+           
+       if opcao == 2:
+         print("Selecione a Conta qual Deseja realizar a Transação")
+         os.system("clear")
+         exibir_Contas1()
+         opcao2 = int(input("Opcao:"))
+# Transferencia PRIMEIRO CLIENTE
+         if opcao2 == 1:
+           print("Favorecido",cliente_goku)
+           valor_transferencia= int(input("Valor da Transferencia:"))
+           print("Transferencia De:R$%.2f" % (valor_transferencia))
+           if valor_transferencia <= Saldo_saitama:
+             Saldo_goku=Saldo_goku+  valor_transferencia
+             saldo_atual=Saldo_saitama - valor_transferencia
+             Saldo_saitama=saldo_atual
+             Numero_segsaitama= random.randint(1000,9999)
+             print("Operção Aprovada")
+             print("Saldo Atual é De:R$%.2f" % (saldo_atual))
+             print("QrCode:",Id_saitama, ";",cliente_goku, ";",valor_transferencia, ";",Numero_segsaitama)
+             input("Precione Enter para Retornar ao Menu")
+             
+           else:
+              print("Saldo Insuficiente.")
+              print("Sessao Encerrada")
+              input("Pressione enter para continuar")
+              os.system("clear")
+              break
+# Transferencia SEGUMDO CLIENTE
+         if opcao2 == 2:
+           print("Favorecido",cliente_naruto)
+           valor_transferencia= int(input("Valor da Transferencia:"))
+           print("Transferencia De:R$%.2f" % (valor_transferencia))
+           if valor_transferencia <= Saldo_saitama:
+             Saldo_naruto=Saldo_naruto +  valor_transferencia
+             saldo_atual=Saldo_saitama - valor_transferencia
+             Saldo_saitama=saldo_atual
+             Numero_segsaitama= random.randint(1000,9999)
+             print("Operção Aprovada")
+             print("Saldo Atual é De:R$%.2f" % (saldo_atual))
+             print("QrCode:",Id_saitama, ";",Saldo_naruto, ";",valor_transferencia, ";",Numero_segsaitama)
+             input("Precione Enter para Retornar ao Menu")
+             
+           else:
+              print("Saldo Insuficiente.")
+              print("Sessao Encerrada")
+              input("Pressione enter para continuar")
+              os.system("clear")
+              break
+#TERCEIRO CLIENTE
+
+   elif CPF == CPF_naruto and Email == Email_naruto and Senha == Senha_naruto and Nome == cliente_naruto:
+     os.system("clear")
+     print("Muito Bem Sr.",Nome)
+     print("Seu Id de Segurança é:",Id_naruto)
+     print('Como Podemos Ajudar?')
+     
+     
+    
+     while True:
+       exibir_menu() 
+       opcao = int(input("Opcao:"))
+       if opcao == 0:
+        os.system("clear")
+        break
+       if opcao == 1:
+         print("Saldo Atual é De:R$%.2f" % (Saldo_naruto))
+         menu =int (input("0-Para Retornar ao Menu de Serviços."))
+         if menu == 0:
+           os.system("clear")
+           print("Muito Bem Sr.",Nome)
+           print("Seu Id de Segurança é:",Id_naruto)
+           print('Como Podemos Ajudar?')
+           
+       if opcao == 2:
+         print("Selecione a Conta qual Deseja realizar a Transação")
+         os.system("clear")
+         exibir_Contas2()
+         opcao2 = int(input("Opcao:"))
+# Transferencia PRIMEIRO CLIENTE
+         if opcao2 == 1:
+           print("Favorecido",cliente_goku)
+           valor_transferencia= int(input("Valor da Transferencia:"))
+           print("Transferencia De:R$%.2f" % (valor_transferencia))
+           if valor_transferencia <= Saldo_naruto:
+             Saldo_goku=Saldo_goku+  valor_transferencia
+             saldo_atual=Saldo_naruto - valor_transferencia
+             Saldo_naruto=saldo_atual
+             Numero_segnaruto= random.randint(1000,9999)
+             print("Operção Aprovada")
+             print("Saldo Atual é De:R$%.2f" % (saldo_atual))
+             print("QrCode:",Id_naruto, ";",cliente_goku, ";",valor_transferencia, ";",Numero_segnaruto)
+             input("Precione Enter para Retornar ao Menu")
+             
+           else:
+              print("Saldo Insuficiente.")
+              print("Sessao Encerrada")
+              input("Pressione enter para continuar")
+              os.system("clear")
+              break
+# Transferencia SEGUMDO CLIENTE
+         if opcao2 == 2:
+           print("Favorecido",cliente_saitama)
+           valor_transferencia= int(input("Valor da Transferencia:"))
+           print("Transferencia De:R$%.2f" % (valor_transferencia))
+           if valor_transferencia <= Saldo_naruto:
+             Saldo_saitama=Saldo_saitama +  valor_transferencia
+             saldo_atual=Saldo_naruto - valor_transferencia
+             Saldo_naruto=saldo_atual
+             Numero_segenaruto= random.randint(1000,9999)
+             print("Operção Aprovada")
+             print("Saldo Atual é De:R$%.2f" % (saldo_atual))
+             print("QrCode:",Id_naruto, ";",cliente_saitama, ";",valor_transferencia, ";",Numero_segnaruto)
+             input("Precione Enter para Retornar ao Menu")
+             
+           else:
+              print("Saldo Insuficiente.")
+              print("Sessao Encerrada")
+              input("Pressione enter para continuar")
+              os.system("clear")
+              break
+    #dados invalido
+   else:
+     print('Dados Invalido!')
+     print('Cofira os Dados e Tente Novamente')
+     # nome fora do banco de  clientes
+ else:
+   print("Cliente Não Cadastrado.")
