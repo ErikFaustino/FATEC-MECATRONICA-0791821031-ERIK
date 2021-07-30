@@ -1,0 +1,4 @@
+x = int(input('Informe o valor1:'))
+y = int(input('Informe o valor2:'))
+z=float(x**2+y**2)*(x-y)**2
+print(z)
