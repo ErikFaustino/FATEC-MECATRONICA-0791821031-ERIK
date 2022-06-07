@@ -1,0 +1,78 @@
+import network
+import urequests as requests
+from machine import Pin
+import time
+from machine import Pin, ADC
+
+sta_if = network.WLAN(network.STA_IF)
+sta_if.active(True)
+def do_connect():
+  if not sta_if.isconnected():
+    print('connecting to network...')
+    sta_if.connect('xxxxxx','xxxxxx')
+    while not sta_if.isconnected():
+      pass
+  print('network config:', sta_if.ifconfig())
+do_connect()
+url = "https://industrial.api.ubidots.com/api/v1.6/devices/controlador/Sinalizacao/lv"
+headers = {
+    'x-auth-token': "xxxxxxxx"
+    }
+#Pino de sa闂佹儳鎽糰 ligado como dreno (on - 0)
+Sinalizacao = Pin(2, Pin.OUT)
+Sensor_de_peso = Pin(4, Pin.IN, Pin.PULL_UP)
+Sensor_de_Volume = Pin(12, Pin.IN, Pin.PULL_UP)
+Sensor_de_Nivel_Galeria = Pin(13, Pin.IN, Pin.PULL_UP)
+sensor = ADC(0)
+
+
+url_post = "https://industrial.api.ubidots.com/api/v1.6/devices/controlador"
+
+headers_post = {
+    'x-auth-token': "xxxxxxxxxx",
+    'content-type': "application/json"
+    }
+
+while True:
+  response = requests.request("GET", url, headers=headers)
+  print("Sinalizacao=",response.text)
+  if float(response.text) == 1:
+    Sinalizacao.value(1)
+  else:
+    Sinalizacao.value(0)
+    
+  if Sensor_de_peso.value() == 0:
+    payload = "{\n\t\"sensor_de_peso\": 1\n}"
+  else:
+    payload = "{\n\t\"sensor_de_peso\": 0\n}"
+  response = requests.request("POST", url_post, data=payload, headers=headers_post)
+  print("Sensor_de_peso=",Sensor_de_peso())
+  
+  if Sensor_de_Volume.value() == 0:
+    payload = "{\n\t\"sensor_de_volume\": 1\n}"
+  else:
+    payload = "{\n\t\"sensor_de_volume\": 0\n}"
+  response = requests.request("POST", url_post, data=payload, headers=headers_post)
+  print("sensor_de_volume=",Sensor_de_Volume.value())
+  
+  if Sensor_de_Nivel_Galeria.value() == 0:
+    payload = "{\n\t\"sensorgaleria\": 1\n}"
+  else:
+    payload = "{\n\t\"sensorgaleria\": 0\n}"
+  response = requests.request("POST", url_post, data=payload, headers=headers_post)
+  print("Sensor_de_Nivel_Galeria=",Sensor_de_Nivel_Galeria.value())
+  
+  print("Tanque=",sensor.read())
+  
+  if sensor.read() ==0:
+   payload = "{\n\t\"tanque\": 0\n}"
+  if sensor.read() >=300:
+    payload = "{\n\t\"tanque\": 25\n}"
+  if sensor.read() >=512:
+    payload = "{\n\t\"tanque\": 50\n}"
+  if sensor.read() >=768:
+    payload = "{\n\t\"tanque\": 100\n}"
+  response = requests.request("POST", url_post, data=payload, headers=headers_post)
+
+  
+  time.sleep(1)
